@@ -8,6 +8,27 @@ public class MostCommonCharacter {
      * @return the most common character within str.
      */
     public char recurringChar(String str) {
-        return ' ';
+        if (str == null || str.isEmpty()){
+            throw new IllegalArgumentException("Input string must not be null or empty");  
+        }
+        int[] charFrequency = new int[256]; 
+        for (char c : str.toCharArray()) {
+            charFrequency[c]++;
+        }
+        char mostCommonChar = ' ';
+        int maxFrequency = 0;
+
+        for (char c : str.toCharArray()) {
+            if (charFrequency[c] > maxFrequency) {
+                mostCommonChar = c;
+                maxFrequency = charFrequency[c];
+            }
+        }
+        return mostCommonChar;
+    }
+    public static void main(String[] args) {
+        MostCommonCharacter mcc = new MostCommonCharacter();
+        String testString = "hello world";
+        System.out.println("Most common character: " + mcc.recurringChar(testString));
     }
 }
