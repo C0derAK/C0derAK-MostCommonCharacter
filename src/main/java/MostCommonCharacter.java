@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class MostCommonCharacter {
     /**
@@ -11,17 +12,16 @@ public class MostCommonCharacter {
         if (str == null || str.isEmpty()){
             throw new IllegalArgumentException("Input string must not be null or empty");  
         }
-        int[] charFrequency = new int[256]; 
+        HashMap<Character, Integer> charFrequency = new HashMap<>();
         for (char c : str.toCharArray()) {
-            charFrequency[c]++;
+            charFrequency.put(c, charFrequency.getOrDefault(c, 0) + 1);
         }
         char mostCommonChar = ' ';
         int maxFrequency = 0;
-
-        for (char c : str.toCharArray()) {
-            if (charFrequency[c] > maxFrequency) {
-                mostCommonChar = c;
-                maxFrequency = charFrequency[c];
+        for (HashMap.Entry<Character, Integer> entry : charFrequency.entrySet()) {
+            if (entry.getValue() > maxFrequency) {
+                mostCommonChar = entry.getKey();
+                maxFrequency = entry.getValue();
             }
         }
         return mostCommonChar;
